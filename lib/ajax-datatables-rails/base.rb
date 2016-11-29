@@ -75,7 +75,7 @@ module AjaxDatatablesRails
     def sort_records(records)
       sort_by = []
       params[:order].each_value do |item|
-        sort_by << "#{sort_column(item)} #{sort_direction(item)} #{sort_nulls(item)}"
+        sort_by << "#{sort_column(item)} #{sort_direction(item)} NULLS #{sort_nulls(item)}"
       end
       records.order(sort_by.join(", "))
     end
