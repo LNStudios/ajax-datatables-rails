@@ -75,7 +75,7 @@ module AjaxDatatablesRails
     def sort_records(records)
       sort_by = []
       params[:order].each_value do |item|
-        sort_by << "#{sort_column(item)} #{sort_direction(item)}"
+        sort_by << "#{sort_column(item)} #{sort_direction(item)} #{sort_nulls(item)}"
       end
       records.order(sort_by.join(", "))
     end
@@ -187,6 +187,11 @@ module AjaxDatatablesRails
       options = %w(desc asc)
       options.include?(item[:dir]) ? item[:dir].upcase : 'ASC'
     end
+
+    def sort_nulls(item)
+      options = %w(first last)
+      options.include?(item[:nulls]) ? item[:nulls].upcase : 'LAST'
+    end 
 
     def sortable_displayed_columns
       @sortable_displayed_columns ||= generate_sortable_displayed_columns
